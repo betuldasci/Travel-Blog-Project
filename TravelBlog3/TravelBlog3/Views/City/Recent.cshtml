@@ -1,0 +1,30 @@
+﻿@model IEnumerable<TravelBlog3.Models.Blog>
+
+<style>
+    .custom-nav .nav-item {
+        margin-bottom: 10px; 
+    }
+
+    .custom-nav .nav-link {
+        color: white;
+        background-color: black;
+        transition: all 0.3s; /* Geçiş efekti */
+        border-radius: 10px; /* Köşeleri yuvarlaklaştır */
+        padding: 10px 15px; /* İç boşlukları artır */
+    }
+
+        .custom-nav .nav-link:hover {
+            background-color: #333; /* Hover durumunda arka plan rengini değiştir */
+            color: #ddd; /* Hover durumunda metin rengini değiştir */
+            transform: scale(1.05); /* Hover durumunda biraz büyüt */
+        }
+</style>
+
+<ul class="nav flex-column custom-nav">
+    @foreach (var blog in Model)
+    {
+        <li class="nav-item">
+            <a class="nav-link" href="@Url.Action("Details", "Blog", new { id = blog.Id })">@blog.Title</a>
+        </li>
+    }
+</ul>

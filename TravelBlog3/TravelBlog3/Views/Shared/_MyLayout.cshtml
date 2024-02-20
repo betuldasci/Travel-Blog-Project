@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>@ViewBag.Title</title>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            background: url('https://st4.depositphotos.com/4640111/41072/i/1600/depositphotos_410721236-stock-photo-planning-vacation-travel-plan-trip.jpg') no-repeat center center fixed;
+            background-size: cover;
+            /* Renk tonunu azaltmak için þeffaf siyah katman ekleme */
+            color: #333;
+        }
+
+        .container.mt-3 {
+            flex: 1;
+        }
+
+        .content-wrapper {
+            flex: 1;
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 20px;
+            border-radius: 5px;
+            margin-bottom: 30px; 
+        }
+
+        .footer {
+            width: 100%;
+            clear: both;
+        }
+        .navbar {
+            padding: 0rem; /* Navbar'ýn iç boþluðunu azaltarak logoya daha fazla yer açýn */
+        }
+
+        .navbar-brand {
+            display: flex;
+            align-items: center;
+            height: 100px; /* Navbar'ýn yüksekliðini artýrýn */
+        }
+
+            .navbar-brand img {
+                height: 100%; /* Logonun boyutunu navbar yüksekliðiyle eþleþtirin */
+                width: auto; /* Logonun orijinal en-boy oranýný koruyun */
+                margin-right: 10px;
+            }
+        .footer {
+            background: #000;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+            position: relative; /* Can be absolute for a fixed footer */
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container ">
+            <a class="navbar-brand" href="@Url.Action("Index", "City")">
+                
+                <img  src="~/Content/logo/BETRAVELBLOG-logos.jpeg" />
+
+            </a>
+            <a class="navbar-brand" href="@Url.Action("Hakkimda", "City")">Hakkýmda</a>
+            <a class="navbar-brand" href="@Url.Action("Iletisim", "City")">Ýletiþim</a>
+            <div class="collapse navbar-collapse">
+                <ul class="navbar-nav ml-auto">
+                    @if (Session["UserId"] == null)
+                    {
+                        <!-- Kullanýcý giriþ yapmamýþsa Login ve Register baðlantýlarýný göster -->
+                        <li class="nav-item">
+                            <a class="nav-link" href="@Url.Action("Login", "Account")">Giriþ Yap</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="@Url.Action("Register", "Account")">Kayýt Ol</a>
+                        </li>
+                    }
+                    else
+                    {
+                        <!-- Kullanýcý giriþ yapmýþsa Blog Ekle baðlantýsýný ve Çýkýþ Yap baðlantýsýný göster -->
+                        <li class="nav-item">
+                            <a class="nav-link" href="@Url.Action("Create", "Blog")">Blog Ekle</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="@Url.Action("Logout", "Account")">Çýkýþ Yap</a>
+                        </li>
+                    }
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-3 content-wrapper">
+        @RenderBody()
+    </div>
+
+
+    <footer class="text-light bg-dark footer">
+        <div class="container p-4">
+            <div class="row">
+                <!-- Ýletiþim Bilgileri -->
+                <div class="col-lg-4 col-md-6 mb-4 mb-md-0">
+                    <h5 class="text-uppercase">Ýletiþim Bilgileri</h5>
+                    <ul class="list-unstyled">
+                        <li>
+                            <p><i class="fas fa-home mr-3"></i> Þehir, Ülke</p>
+                        </li>
+                        <li>
+                            <p><i class="fas fa-envelope mr-3"></i> email@example.com</p>
+                        </li>
+                        <li>
+                            <p><i class="fas fa-phone mr-3"></i> + 01 234 567 88</p>
+                        </li>
+                        <li>
+                            <p><i class="fas fa-print mr-3"></i> + 01 234 567 89</p>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Sosyal Medya Ýkonlarý -->
+                <div class="col-lg-4 col-md-6 mb-4 mb-md-0">
+                    <h5 class="text-uppercase">Sosyal Medya</h5>
+                    <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button">
+                        <i class="fab fa-google"></i>
+                    </a>
+                    <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Telif Hakký Metni -->
+        <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+            © 2023 Telif Hakký:
+            <a class="text-light" href="https://example.com/">example.com</a>
+        </div>
+    </footer>
+
+    <script src="//code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="//stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/js/all.min.js"></script>
+</body>
+</html>

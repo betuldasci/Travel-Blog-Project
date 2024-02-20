@@ -1,0 +1,30 @@
+﻿@model TravelBlog3.Models.Comment
+@{
+    ViewBag.Title = "GetComment";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>Update Comment</h2>
+
+
+@using (Html.BeginForm("UpdateComment", "Admin", FormMethod.Post))
+{
+    @Html.LabelFor(x=>x.Id)
+    @Html.TextBoxFor(x=>x.Id, new { @class = "form-control", @readonly = "readonly" })
+   
+
+    <br />
+    @Html.LabelFor(x => x.User.Username)
+    @Html.TextBoxFor(x => x.User.Username, new { @class = "form-control" })
+
+    <br />
+    @Html.LabelFor(x => x.User.Mail)
+    @Html.TextBoxFor(x => x.User.Mail, new { @class = "form-control" })
+
+    <br />
+
+    @Html.LabelFor(x => x.CommentContent)
+    @Html.TextAreaFor(x => x.CommentContent, 15, 1, new { @class = "form-control" })
+    <br />
+    <button class="btn btn-success">Update Comment</button>
+}

@@ -1,0 +1,30 @@
+﻿@model IEnumerable<TravelBlog3.Models.Blog>
+@{
+    Layout = null;
+}
+
+
+
+
+
+<div class="container mt-4">
+    <div class="row">
+        @foreach (var blog in Model)
+        {
+            <div class="col-md-4 mb-4">
+                <div class="card h-100">
+                    <img class="card-img-top" src="@blog.ImageUrl" alt="@blog.Title">
+                    <div class="card-body">
+                        <h5 class="card-title">@blog.Title</h5>
+                        <p class="card-text">@blog.Description</p>
+                        @*<p class="card-text"><small class="text-muted">Yazar: @blog.User.Username</small></p>*@
+                    </div>
+                    <div class="card-footer">
+                        <a href="@Url.Action("Details", "Blog", new { id = blog.Id })" class="btn btn-primary">Devamını Oku</a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+

@@ -1,0 +1,36 @@
+﻿@model TravelBlog3.Models.Blog
+@{
+    Layout = "~/Views/Shared/_MyLayout.cshtml";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @*<div class="form-group">
+            @Html.Label("Şehirler")
+            @Html.ListBox("CityIds", (MultiSelectList)ViewBag.CityIds, new { @class = "form-control" })
+        </div>*@
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Title)
+        @Html.TextBoxFor(model => model.Title, new { @class = "form-control" })
+    </div>
+
+    <div class="form-group">
+
+        @Html.LabelFor(model => model.Description)
+        @Html.TextAreaFor(model => model.Description, new { @class = "form-control" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.ImageUrl)
+        @Html.TextAreaFor(model => model.ImageUrl, new { @class = "form-control" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.CityId, "City")
+        @Html.DropDownList("CityId", (SelectList)ViewBag.CityId, "Select a City", new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.CityId)
+    </div>
+    <button type="submit" class="btn btn-success">Add</button>
+}

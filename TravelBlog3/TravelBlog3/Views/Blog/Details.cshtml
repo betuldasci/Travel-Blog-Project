@@ -1,0 +1,93 @@
+﻿@model TravelBlog3.Models.Blog
+@{
+    ViewBag.Title = Model.Title;
+    Layout = "~/Views/Shared/_MyLayout.cshtml";
+}
+
+<div class="blog-details text-center mb-4">
+    <h2>@Model.Title</h2>
+    <p>@Model.Description</p>
+    <img src="@Model.ImageUrl" class="img-fluid rounded" style="border-radius: 5px; max-width: 80%;" />
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <span class="btn btn-lg btn-outline-danger">
+                <i class="fas fa-heart"></i> (@Model.LikeCount)
+            </span>
+            @if (Session["UserId"] != null)
+            {
+                bool alreadyLiked = Model.Likes != null && Model.Likes.Any(l => l.UserId == Convert.ToInt32(Session["UserId"]));
+                <form action="@Url.Action("Like", "Blog")" method="post" class="mr-2">
+                    @Html.AntiForgeryToken()
+                    <input type="hidden" name="blogId" value="@Model.Id" />
+                    <button type="submit" class="btn btn-lg @(alreadyLiked ? "btn-danger" : "btn-outline-danger")" style="font-size: 1.5rem;" @(alreadyLiked ? "disabled" : "")><i class="fas fa-heart"></i> (@Model.LikeCount)</button>
+                </form>
+            }
+        </div>
+
+        <!-- Yorum Yapma Formu -->
+        <div class="col-md-12 ">
+            @if (Session["UserId"] != null)
+            {
+                <div class="comment-form mb-5">
+                  <hr />
+                    @using (Html.BeginForm("AddComment", "Blog", FormMethod.Post, new { @class = "form-group" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.Hidden("blogId", Model.Id)
+
+                        <div class="form-group">
+                            @Html.TextArea("commentContent", "", new { @class = "form-control", @placeholder = "Yorumunuzu buraya yazın..." })
+                        </div>
+
+                        <button type="submit" class="btn btn-dark ">Yorum Yap</button>
+                        <hr />
+                    }
+                </div>
+            }
+        </div>
+    </div>
+
+
+    <!-- Yorum Onay Mesajı -->
+    @if (TempData["ConfirmationMessage"] != null)
+    {
+        <div class="alert alert-success text-center">
+            @TempData["ConfirmationMessage"]
+        </div>
+    }
+
+    <!-- Yorumlar Bölümü -->
+    <div class="comments mb-5">
+        <h3 class="my-4">Yorumlar</h3>
+        <hr />
+        @if (Model.Comments != null && Model.Comments.Any(c => c.IsStatus))
+        {
+            foreach (var comment in Model.Comments.Where(c => c.IsStatus))
+            {
+                <div class="comment mb-3 p-3 border rounded">
+                    <div class="d-flex align-items-center mb-2">
+                        <i class="fas fa-user mr-2"></i>
+                        <strong class="mr-2" style="font-size: 1.2rem;">@comment.User.Username</strong>
+                    </div>
+                    <p style="color: black;">@comment.CommentContent</p>
+                </div>
+            }
+        }
+        else
+        {
+            <p class="text-center">Bu blog için henüz yorum yapılmamış.</p>
+        }
+    </div>
+</div>
+
+<script src="https://kit.fontawesome.com/your-fontawesome-kit.js"></script>
+
+<style>
+    .btn-hover:hover {
+        transform: scale(1.1);
+        color: white;
+    }
+</style>

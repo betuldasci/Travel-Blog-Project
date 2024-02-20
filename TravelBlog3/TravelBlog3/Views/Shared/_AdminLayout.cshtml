@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>AdminPanel</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Bootstrap CSS -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-dark text-white">
+
+    <div class="d-flex">
+        <div class="d-flex flex-column flex-shrink-0 p-3 bg-secondary" style="width:250px;">
+            <h3 class="text-white my-4">Content</h3>
+            <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                <a class="nav-link btn btn-dark mb-2 active" href="/Admin/Index/" role="tab" aria-controls="v-pills-home" aria-selected="true">Blogs</a>
+                <a class="nav-link btn btn-dark mb-2" href="/Admin/CommentList/" role="tab" aria-controls="v-pills-profile" aria-selected="false">Comments</a>
+                
+                <a class="nav-link btn btn-dark mb-2" href="/City/Index/" role="tab" aria-controls="v-pills-settings" aria-selected="false">Go To Site</a>
+                <a class="nav-link btn btn-dark mb-2" href="/Account/Logout/" role="tab" aria-controls="v-pills-settings" aria-selected="false">LOGOUT</a>
+            </div>
+        </div>
+
+        <div style="flex:1;">
+            <div class="d-flex justify-content-center align-items-center p-3 bg-dark text-white">
+                <h3 class="mb-0">Admin Panel</h3>
+            </div>
+            <div class="container mt-5">
+                @RenderBody()
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS and Popper.js -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,34 @@
+﻿@model IEnumerable<TravelBlog3.Models.Blog>
+@{
+    ViewBag.Title = ViewBag.CityName + " Blogları";
+    Layout = "~/Views/Shared/_MyLayout.cshtml";
+}
+
+<h2>@ViewBag.CityName Blogları</h2>
+<div class="row">
+    @foreach (var blog in Model)
+    {
+        <div class="col-md-6 mb-4">
+            <div class="card h-100">
+                <img class="card-img-top rounded" src="@blog.ImageUrl" style="border-radius: 10px; width: 540px; height: 400px;" />
+                <div class="card-body">
+                    <h5 class="card-title">@blog.Title</h5>
+                    <p class="card-text">@blog.Description<span>...</span></p>
+                    <a href="@Url.Action("Details", "Blog", new { id = blog.Id })" class="btn btn-outline-dark btn-hover">Devamını Oku</a>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+<p class="mt-5">@ViewBag.CityName'ne gidersem buraya bloglarımı ekleyeceğim.</p>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<style>
+    .btn-hover:hover {
+        color: black;
+        transform: scale(1.1);
+    }
+</style>
